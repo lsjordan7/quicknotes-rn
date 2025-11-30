@@ -6,11 +6,18 @@ interface NoteCardProps {
   note: Note;
   onPress: () => void;
   onLongPress?: () => void;
+  darkMode?: boolean;
 }
 
-export default function NoteCard({ note, onPress, onLongPress }: NoteCardProps) {
+export default function NoteCard({
+  note,
+  onPress,
+  onLongPress,
+  darkMode = false,
+}: NoteCardProps) {
   const date = new Date(note.createdAt);
   const formatted = date.toLocaleString();
+  const styles = darkMode ? darkStyles : lightStyles;
 
   return (
     <Pressable
@@ -18,7 +25,7 @@ export default function NoteCard({ note, onPress, onLongPress }: NoteCardProps) 
       onLongPress={onLongPress}
       style={({ pressed }) => [
         styles.card,
-        pressed && { opacity: 0.8, transform: [{ scale: 0.99 }] },
+        pressed && { opacity: 0.9, transform: [{ scale: 0.99 }] },
       ]}
     >
       <View>
@@ -34,28 +41,60 @@ export default function NoteCard({ note, onPress, onLongPress }: NoteCardProps) 
   );
 }
 
-const styles = StyleSheet.create({
+const baseCard = {
+  borderRadius: 14,
+  padding: 14,
+  marginBottom: 14,
+  borderWidth: 1,
+  shadowColor: '#000',
+  shadowOpacity: 0.04,
+  shadowRadius: 3,
+  shadowOffset: { width: 0, height: 1 },
+};
+
+const lightStyles = StyleSheet.create({
   card: {
-    backgroundColor: '#020617',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#1F2937',
-    padding: 12,
+    ...baseCard,
+    backgroundColor: '#FFE68A',
+    borderColor: '#E1C872',
+  },
+  title: {
+    color: '#3F3201',
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 6,
+  },
+  preview: {
+    color: '#5A4A0A',
+    fontSize: 15,
     marginBottom: 10,
+  },
+  date: {
+    color: '#8B7A3E',
+    fontSize: 12,
+    textAlign: 'right',
+  },
+});
+
+const darkStyles = StyleSheet.create({
+  card: {
+    ...baseCard,
+    backgroundColor: '#020617',
+    borderColor: '#1F2937',
   },
   title: {
     color: '#F9FAFB',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
-    marginBottom: 4,
+    marginBottom: 6,
   },
   preview: {
-    color: '#9CA3AF',
-    fontSize: 14,
-    marginBottom: 8,
+    color: '#D1D5DB',
+    fontSize: 15,
+    marginBottom: 10,
   },
   date: {
-    color: '#6B7280',
+    color: '#9CA3AF',
     fontSize: 12,
     textAlign: 'right',
   },

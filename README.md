@@ -1,196 +1,192 @@
-QuickNotes – A Lightweight, Fast, Themed Note-Taking App (React Native + Expo)**
+# 📘 QuickNotes  
+### A Lightweight, Fast, Themed Note-Taking App (React Native + Expo)
 
-A mobile app built with craftsmanship, clean architecture, and thoughtful UX.
+QuickNotes is a clean, modern note-taking app built with **React Native**, **Expo**, and **TypeScript**.  
+It demonstrates real mobile-engineering thinking: modular architecture, polished UI, persistent storage, theming, and strong component structure.
 
-QuickNotes is a cross-platform note-taking application built using React Native, Expo, and modern front-end architecture. It focuses on clarity, speed, and simplicity — with small touches of polish that reflect real product-level thinking.
+This project was built as a showcase of:
 
-This project was built to demonstrate:
-	•	Modular architecture
-	•	Component-driven UI
-	•	Context-based state management
-	•	Persistent offline storage
-	•	Theming and modern mobile design patterns
-	•	Navigation structure
-	•	Practical React Native engineering workflows
+- Mobile UI/UX design intuition  
+- Clean architectural patterns  
+- Context-based state management  
+- Async storage and offline persistence  
+- Smooth navigation flows  
+- Theming (light + dark)  
+- Practical React Native app structure  
 
-⸻
+---
 
-🚀 Features
+## 🚀 Features
 
-✔ Create Notes
+### ✔ Create Notes  
+Add quick notes with title + body.
 
-Each note includes a title, body content, and timestamp.
+### ✔ Edit Notes  
+Tap any note → instantly edit + save.
 
-✔ Edit Existing Notes
+### ✔ Persistent Storage  
+Notes are saved using **Async Storage** and remain after closing the app.
 
-Tap a note → edit → save gracefully with validation and UI animations.
+### ✔ Light / Dark Theme Toggle  
+Demonstrates scalable theme tokens and component refactoring.
 
-✔ Persistent Storage
+### ✔ Floating Action Button (FAB)  
+A modern UX pattern for primary actions.
 
-Notes are saved locally via Async Storage so your data remains between app sessions.
+### ✔ Smooth, Polished UI  
+- Rounded cards  
+- Shadows  
+- Spacing system  
+- Elegant typography  
+- Subtle animations  
 
-✔ Light/Dark Theme Toggle
+### ✔ Navigation Stack  
+Built with **React Navigation** for clean screen transitions.
 
-A UI-level toggle that demonstrates theme-aware styling, scalable design tokens, and component reuse.
+---
 
-✔ Floating Action Button (FAB)
+## 📸 Screenshots
 
-A modern, mobile-native action point for quickly adding notes.
+> *(Replace the placeholder paths below with real screenshots once ready.)*
 
-✔ Clean, Touch-Optimized UI
+| Home – Light Mode | Home – Dark Mode | Note Detail |
+|-------------------|------------------|-------------|
+| ![](screenshots/home-light.png) | ![](screenshots/home-dark.png) | ![](screenshots/detail.png) |
 
-The app includes:
-	•	Rounded card components
-	•	Soft shadows
-	•	Animated list changes
-	•	Consistent spacing system
-	•	Thoughtful color palette based on “digital notepad” inspiration
+---
 
-✔ Navigation with React Navigation
+## 🧱 Architecture Overview
 
-Stack-based navigation between Home → Detail/Screens.
+QuickNotes is structured with clarity and scalability in mind.
 
-⸻
+### **`src/hooks/useNotes.tsx`**  
+A centralized logic layer:
 
-📸 Screenshots
+- React Context provides note state globally  
+- Custom hook exposes add/edit/delete APIs  
+- Async Storage persistence  
+- Clean, predictable interface for UI components  
 
-(Add your screenshots here — you can upload them to GitHub or paste directly.)
+### **`src/screens/` Folder**  
+Each screen handles presentation only:
 
-Example structure:
+**`HomeScreen.tsx`**  
+- Lists notes  
+- FAB for new note  
+- Theming toggle  
+- Animated transitions  
 
-Home Screen (Light)	Home Screen (Dark)	Note Detail
-		
+**`DetailScreen.tsx`**  
+- Edit a note  
+- Validation  
+- Clean reading/editing experience  
 
-If you don’t have screenshots yet, I’ll help you generate some tomorrow.
+### **`src/components/NoteCard.tsx`**  
+Reusable, theme-aware preview card:
 
-⸻
+- Pressable  
+- Soft shadows  
+- Truncated text  
+- Uses global theme tokens  
 
-🧱 Architecture Overview
+### **`App.tsx`**  
+The root of the application:
 
-This project is built around clear separation of concerns:
+- Navigation container  
+- Safe area wrappers  
+- NotesProvider  
+- Light/Dark theme logic  
 
-src/hooks/useNotes.tsx
+---
 
-A centralized state manager that uses:
-	•	React Context to provide app-wide note access
-	•	Custom Hooks for ergonomic API
-	•	Async Storage for persistence
-	•	Pure functions for adding, updating, deleting notes
+## 🧩 Tech Stack
 
-This structure mirrors how production mobile apps manage domain logic.
+- **React Native**  
+- **Expo**  
+- **TypeScript**  
+- **React Navigation**  
+- **Async Storage**  
+- **Context API**  
+- **Custom Hooks**  
 
-⸻
+---
 
-src/screens/
+## 🎨 Design Decisions
 
-Each screen is responsible for presentation only:
-	•	HomeScreen.tsx
-	•	List of notes
-	•	Theming
-	•	FAB
-	•	Add note UI
-	•	Animated state transitions
-	•	DetailScreen.tsx
-	•	Note editing flow
-	•	Clean UX for read/edit modes
-	•	Title/body validation
+QuickNotes embraces a **digital notepad aesthetic**:
 
-⸻
+- Warm, soft yellow primary color  
+- Rounded corners everywhere  
+- Gentle shadows  
+- Large tap targets  
+- Legible typography  
+- Minimal clutter  
 
-src/components/NoteCard.tsx
+The app is intentionally:
 
-A reusable, theme-aware note preview card with:
-	•	Tappable hit areas
-	•	Press feedback
-	•	Time formatting
-	•	Multi-line truncation
-	•	Light/Dark styling variants
+- Calm  
+- Fast  
+- Focused  
+- Intuitive  
 
-⸻
+It’s designed to feel like a **thoughtful everyday tool**, not a demo.
 
- App.tsx
+---
 
-The application shell:
-	•	Safe Area
-	•	NotesProvider
-	•	Navigation
-	•	Status bar styling
-
-⸻
-
-🧩 Tech Stack
-	•	React Native
-	•	Expo
-	•	TypeScript
-	•	React Navigation
-	•	Async Storage
-	•	Context API
-	•	Light/Dark Theme System
-
-⸻
-
-🎨 Design Philosophy
-
-QuickNotes intentionally merges minimal engineering with intentional design:
-	•	Yellow-based palette inspired by traditional notepads
-	•	Friendly rounded shapes
-	•	Soft shadows to elevate cards
-	•	Legible typography
-	•	Clear visual hierarchy
-	•	Focus on touch ergonomics
-
-The entire UI was built to show thoughtful craftsmanship and mobile-native sensibilities — not just “make it work,” but make it feel right.
-
-⸻
-
-📦 Project Setup
+## 📦 Setup & Installation
 
 Clone the repo:
 
+```bash
 git clone https://github.com/lsjordan7/quicknotes-rn.git
 cd quicknotes-rn
-
+```
 Install dependencies:
-
+```bash
 npm install
+```
 
-Run on iOS/Android/Web:
-
+Start the Expo development server:
+```bash
 npx expo start
+```
+Run the project on:
+	•	iOS Simulator
+	•	Android Emulator
+	•	Expo Go on mobile
+	•	Web
 
+## 🌱 Future Enhancements
 
-⸻
-
-🌱 Future Enhancements
-
-Planned next steps (and great topics to discuss in interviews):
+Potential upgrades (excellent talking points):
 	•	Cloud sync
-	•	Note pinning
-	•	Better searching / filtering
-	•	Offline-first architecture
-	•	Multi-folder organization
 	•	Swipe-to-delete
-	•	Biometric lock for privacy
+	•	Search and filtering
+	•	Categories / folders
+	•	Multi-device sync
+	•	Pinning favorite notes
+	•	Biometrics (Face ID / Touch ID) lock
 
 ⸻
 
-💬 Why This App Matters (Interview Context)
+## 🗣 Why This Project Matters
 
-QuickNotes demonstrates that I can:
-	•	Understand architecture
-	•	Build modular components
-	•	Use React Native with confidence
-	•	Solve real debugging issues
-	•	Manage state and persistence
-	•	Apply clean, thoughtful UI design
-	•	Work with mobile patterns (FAB, theming, etc.)
-	•	Use Git effectively under pressure
-	•	Learn fast, iterate fast, and ship
+QuickNotes demonstrates:
+	•	Ability to build real mobile UI/UX
+	•	Understanding of component architecture
+	•	State management patterns
+	•	Navigation strategies
+	•	Theme systems
+	•	Async persistence
+	•	Git, debugging, and iteration
+	•	Speed of learning and execution
+	•	“Product thinking” combined with engineering skill
 
-This app represents not just coding ability — but product sensibility, design intuition, and problem-solving under real technical constraints.
+This project shows that I can think like a developer and a designer — shipping something clean, maintainable, and user-friendly.
 
 ⸻
 
 📬 Contact
 
-If you’d like to discuss this project or my approach, feel free to reach out.
+Feel free to reach out if you’d like to discuss this project or my approach.
+	

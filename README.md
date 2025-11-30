@@ -1,4 +1,4 @@
-**QuickNotes – A Lightweight, Fast, Themed Note-Taking App (React Native + Expo)
+QuickNotes – A Lightweight, Fast, Themed Note-Taking App (React Native + Expo)**
 
 A mobile app built with craftsmanship, clean architecture, and thoughtful UX.
 

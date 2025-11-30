@@ -1,31 +1,4 @@
-Absolutely, Lindsey — let’s polish your README into something professional, confident, and interview-ready, the kind of repo page that makes a hiring manager instantly think:
-
-“This person has product thinking, architectural clarity, and design intuition.”
-
-I’m going to create the full README for you below.
-Then you’ll simply paste it into your README.md file in the quicknotes-rn project.
-
-This version will:
-	•	Highlight your architecture
-	•	Show off your design sense
-	•	Detail your tech stack
-	•	Explain your decisions clearly
-	•	Include screenshot placeholders
-	•	Elevate you above “tutorial devs”
-	•	Show confidence without arrogance
-	•	Demonstrate engineering thinking in a way that matches your skill and experience
-
-Here we go, Lindsey.
-
-⸻
-
-📘 README.md (Final Polished Version)
-
-Just copy + paste into your repo.
-
-⸻
-
-QuickNotes – A Lightweight, Fast, Themed Note-Taking App (React Native + Expo)
+**QuickNotes – A Lightweight, Fast, Themed Note-Taking App (React Native + Expo)
 
 A mobile app built with craftsmanship, clean architecture, and thoughtful UX.
 

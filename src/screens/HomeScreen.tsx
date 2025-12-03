@@ -43,13 +43,13 @@ const lightTheme: Theme = {
 };
 
 const darkTheme: Theme = {
-  background: '#020617',
-  panel: '#0B1120',
+  background: '#5c3e07ff',
+  panel: '#4d3707ff',
   panelBorder: '#111827',
   inputBg: '#020617',
   inputBorder: '#1F2937',
-  heading: '#E5E7EB',
-  textSubtle: '#6B7280',
+  heading: '#f17712ff',
+  textSubtle: '#f78214ff',
   accent: '#FBBF24',
 };
 
@@ -80,22 +80,36 @@ export default function HomeScreen({ navigation }: Props) {
   };
 
   const handleDelete = (id: string) => {
-    Alert.alert('Delete note?', 'This cannot be undone.', [
-      { text: 'Cancel', style: 'cancel' },
+  Alert.alert(
+    'Delete note',
+    'Are you sure you want to delete this note?',
+    [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
       {
         text: 'Delete',
         style: 'destructive',
-        onPress: () => {
-          LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-          deleteNote(id);
-        },
+        onPress: () => deleteNote(id), // assumes you get deleteNote from useNotes()
       },
-    ]);
-  };
+    ],
+    { cancelable: true }
+  );
+};
 
   return (
+  <View style={styles.legalPadBackground}>
+    {/* LEGAL PAD LINES (behind everything) */}
+    <View style={styles.linesLayer}>
+      {[...Array(40)].map((_, i) => (
+        <View key={i} style={styles.horizontalLine} />
+      ))}
+    </View>
+
+    {/* MAIN UI LAYER (above the lines) */}
     <KeyboardAvoidingView
-      style={styles.container}
+      style={styles.contentLayer}
       behavior={Platform.select({ ios: 'padding', android: undefined })}
     >
       <View style={styles.headerRow}>
@@ -118,6 +132,7 @@ export default function HomeScreen({ navigation }: Props) {
           value={title}
           onChangeText={setTitle}
         />
+
         <TextInput
           style={[styles.input, styles.multiline]}
           placeholder="Write your note here..."
@@ -130,6 +145,7 @@ export default function HomeScreen({ navigation }: Props) {
 
       <View style={styles.listContainer}>
         <Text style={styles.heading}>Your Notes</Text>
+
         {loading ? (
           <ActivityIndicator color={theme.accent} />
         ) : notes.length === 0 ? (
@@ -138,18 +154,21 @@ export default function HomeScreen({ navigation }: Props) {
           </Text>
         ) : (
           <FlatList
-            data={notes}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-              <NoteCard
-                note={item}
-                darkMode={darkMode}
-                onPress={() => navigation.navigate('Detail', { note: item })}
-                onLongPress={() => handleDelete(item.id)}
-              />
-            )}
-            contentContainerStyle={styles.listContent}
-          />
+  data={notes}
+  keyExtractor={item => item.id}
+  renderItem={({ item }) => (
+    <NoteCard
+      note={item}
+      darkMode={darkMode}
+      onPress={() => navigation.navigate('Detail', { note: item })}
+      // Keep long-press delete if you like
+      onLongPress={() => handleDelete(item.id)}
+      // New: red trashcan button
+      onDelete={() => handleDelete(item.id)}
+    />
+  )}
+  contentContainerStyle={styles.listContent}
+/>
         )}
       </View>
 
@@ -157,6 +176,7 @@ export default function HomeScreen({ navigation }: Props) {
         <Text style={styles.fabText}>＋</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
+  </View>
   );
 }
 
@@ -251,4 +271,30 @@ const createStyles = (theme: Theme) =>
       lineHeight: 32,
       fontWeight: '700',
     },
+    legalPadBackground: {
+  flex: 1,
+  backgroundColor: '#FDE47F', // Yellow legal pad base color
+  justifyContent: 'flex-start',
+},
+
+linesLayer: {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+},
+
+horizontalLine: {
+  height: 1,
+  backgroundColor: '#E5C75C', // darker yellow legal pad lines
+  opacity: 0.6,
+  marginVertical: 12,
+},
+
+contentLayer: {
+  flex: 1,
+  paddingHorizontal: 20,
+  paddingTop: 20,
+},
   });

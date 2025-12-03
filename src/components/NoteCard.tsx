@@ -1,101 +1,100 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import type { Note } from '../types';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { Note } from '../types';
 
-interface NoteCardProps {
+type Props = {
   note: Note;
+  darkMode: boolean;
   onPress: () => void;
   onLongPress?: () => void;
-  darkMode?: boolean;
-}
-
-export default function NoteCard({
-  note,
-  onPress,
-  onLongPress,
-  darkMode = false,
-}: NoteCardProps) {
-  const date = new Date(note.createdAt);
-  const formatted = date.toLocaleString();
-  const styles = darkMode ? darkStyles : lightStyles;
-
-  return (
-    <Pressable
-      onPress={onPress}
-      onLongPress={onLongPress}
-      style={({ pressed }) => [
-        styles.card,
-        pressed && { opacity: 0.9, transform: [{ scale: 0.99 }] },
-      ]}
-    >
-      <View>
-        <Text style={styles.title} numberOfLines={1}>
-          {note.title}
-        </Text>
-        <Text style={styles.preview} numberOfLines={2}>
-          {note.content || 'No content'}
-        </Text>
-      </View>
-      <Text style={styles.date}>{formatted}</Text>
-    </Pressable>
-  );
-}
-
-const baseCard = {
-  borderRadius: 14,
-  padding: 14,
-  marginBottom: 14,
-  borderWidth: 1,
-  shadowColor: '#000',
-  shadowOpacity: 0.04,
-  shadowRadius: 3,
-  shadowOffset: { width: 0, height: 1 },
+  // New: called when the trashcan is tapped
+  onDelete?: () => void;
 };
 
-const lightStyles = StyleSheet.create({
+const NoteCard: React.FC<Props> = ({
+  note,
+  darkMode,
+  onPress,
+  onLongPress,
+  onDelete,
+}) => {
+  const backgroundColor = darkMode ? '#111827' : '#ffffff';
+  const titleColor = darkMode ? '#F9FAFB' : '#111827';
+  const bodyColor = darkMode ? '#9CA3AF' : '#4B5563';
+
+  return (
+    <View style={[styles.card, { backgroundColor }]}>
+      {/* Main tappable area for opening the note */}
+      <TouchableOpacity
+        style={styles.cardContent}
+        onPress={onPress}
+        onLongPress={onLongPress}
+        activeOpacity={0.85}
+      >
+        <Text
+          style={[styles.title, { color: titleColor }]}
+          numberOfLines={1}
+        >
+          {note.title || 'Untitled note'}
+        </Text>
+        <Text
+          style={[styles.body, { color: bodyColor }]}
+          numberOfLines={2}
+        >
+          {note.content}
+        </Text>
+      </TouchableOpacity>
+
+      {/* Trashcan button on the right */}
+      {onDelete && (
+        <TouchableOpacity
+          onPress={onDelete}
+          style={styles.deleteButton}
+          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+        >
+          <Feather name="trash-2" size={20} color="#DC2626" />
+        </TouchableOpacity>
+      )}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
   card: {
-    ...baseCard,
-    backgroundColor: '#FFE68A',
-    borderColor: '#E1C872',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 2,
+  },
+  cardContent: {
+    flex: 1,
   },
   title: {
-    color: '#3F3201',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '600',
-    marginBottom: 6,
+    marginBottom: 2,
   },
-  preview: {
-    color: '#5A4A0A',
-    fontSize: 15,
-    marginBottom: 10,
+  body: {
+    fontSize: 14,
   },
-  date: {
-    color: '#8B7A3E',
-    fontSize: 12,
-    textAlign: 'right',
+  deleteButton: {
+    marginLeft: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
-const darkStyles = StyleSheet.create({
-  card: {
-    ...baseCard,
-    backgroundColor: '#020617',
-    borderColor: '#1F2937',
-  },
-  title: {
-    color: '#F9FAFB',
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 6,
-  },
-  preview: {
-    color: '#D1D5DB',
-    fontSize: 15,
-    marginBottom: 10,
-  },
-  date: {
-    color: '#9CA3AF',
-    fontSize: 12,
-    textAlign: 'right',
-  },
-});
+export default NoteCard;
